@@ -1,0 +1,22 @@
+{
+  "name": "research-optimise-mesh-parsing",
+  "version": "0.0.0",
+  "description": "Various experiments in order to figure out better ways to load 3d data in the browser (streams, observable) for the following formats: - 3MF - stl - ???",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaosat-dev/research-optimise-mesh-parsing.git"
+  },
+  "author": "Mark 'kaosat-dev' Moissette",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaosat-dev/research-optimise-mesh-parsing/issues"
+  },
+  "homepage": "https://github.com/kaosat-dev/research-optimise-mesh-parsing#readme",
+  "dependencies": {
+    "workerstream": "^1.2.1"
+  }
+}
