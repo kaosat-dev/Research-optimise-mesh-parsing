@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify src/editor.js -o dist/shapeFu/editor.js -t [ babelify workerify]",
-    "browserify-worker": "browserify src/worker.src.js -t babelify -t workerify -t --outfile src/worker.js",
-    "browserify-worker2": "browserify src/worker2.src.js -t babelify -t workerify -t --outfile src/worker2.js",
+    "browserify-worker": "browserify src/workers/worker.src.js -t babelify -t workerify -t --outfile src/workers/worker.js",
+    "browserify-worker2": "browserify src/workers/worker2.src.js -t babelify -t workerify -t --outfile src/workers/worker2.js",
     "start-dev": "budo src/index.js:src/bundle.js --port=8081 --live -- -t [ babelify workerify]"
   },
   "repository": {
