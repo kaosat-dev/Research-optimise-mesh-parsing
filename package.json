@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/kaosat-dev/research-optimise-mesh-parsing#readme",
   "dependencies": {
+    "concat-stream": "^1.5.2",
     "filereader-stream": "^1.0.0",
+    "through2": "^2.0.1",
     "workerstream": "^1.2.1"
   },
   "devDependencies": {
