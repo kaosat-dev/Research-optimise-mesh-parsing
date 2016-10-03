@@ -8,8 +8,7 @@
     "browserify-worker": "browserify src/workers/workers/worker.src.js -t babelify -t workerify -t --outfile src/workers/workers/worker.js",
     "browserify-worker2": "browserify src/workers/workers/worker2.src.js -t babelify -t workerify -t --outfile src/workers/workers/worker2.js",
     "browserify-stlWorker": "browserify src/workers/workers/stlStreamWorker.src.js -t babelify -t workerify -t --outfile src/workers/workers/stlStreamWorker.js",
-    "browserify-stlWorker2": "browserify src/workers/workers/stlStreamWorker2.src.js -t babelify -t workerify -t --outfile src/workers/workers/stlStreamWorker2.js",
-
+    "browserify-stlWorker2": "NODE_ENV=production && browserify src/workers/workers/stlStreamWorker2.src.js -t babelify -t workerify -t --outfile src/workers/workers/stlStreamWorker2.js",
     "start-dev": "budo src/index.js:src/bundle.js --port=8081 --live -- -t [ babelify workerify]"
   },
   "repository": {
@@ -35,6 +34,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "budo": "^8.3.0",
+    "uglifyify": "^3.0.3",
     "webworkify": "^1.4.0",
     "workerify": "^0.3.0"
   }
