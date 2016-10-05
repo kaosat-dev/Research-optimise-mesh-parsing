@@ -56,7 +56,7 @@ export default function parseStlAsStreamWorker (fileReaderStream, files) {
       }
       this.on('finish', function () {
         const result = prepareResult(bufferConcat(this.body))
-        console.log('all done', result)
+        //console.log('all done', result)
         this.push(result)
         this.emit('end')
        })
@@ -66,13 +66,14 @@ export default function parseStlAsStreamWorker (fileReaderStream, files) {
     //  console.log('read')
     }
     _write(chunk, encoding, callback) {
-      console.log('foo',chunk)
+      //console.log('chunk',chunk)
       this.body.push(chunk)
       callback()
     }
     end(chunk, encoding, callback){
-      console.log('end', chunk ,encoding, callback)
-      this.emit('finish')
+      //console.log('end', chunk ,encoding, callback)
+      const self = this
+      setTimeout(() => self.emit('finish'), 0.1)
     }
   }
   /*function makeFormatter(){
@@ -106,10 +107,13 @@ export default function parseStlAsStreamWorker (fileReaderStream, files) {
     .pipe(wokerStreamer)
     //.pipe(through2(after))
     .pipe(formatter)
-    .pipe(through2({ objectMode: true}, after))
-    .pipe(concat(function (data) {
-      console.log('DONE', data)
+    .pipe(through2({ objectMode: true}, function(data, enc, callback){
+      const {positions, normals} = data
+      //console.log('first', positions[0], 'last item in positions', positions[positions.length-1])
+      endTime = new Date()
+      console.log(`Mode: streaming, worker, chunkSize: ${chunkSize}kb, elapsed: ${endTime - startTime}, geometry size: ${positions.byteLength}`)
     }))
+
 
     /*.pipe(concat(function (data) {
       //console.log('FUUUUend of data',data)
