@@ -24,8 +24,15 @@
   "dependencies": {
     "concat-stream": "^1.5.2",
     "filereader-stream": "^1.0.0",
+    "jszip": "^3.1.3",
+    "node-stream-zip": "^1.3.4",
+    "sax": "^1.2.1",
     "through2": "^2.0.1",
-    "workerstream": "^1.2.1"
+    "unzip": "^0.1.11",
+    "unzipper": "github:zjonsson/node-unzipper",
+    "workerstream": "^1.2.1",
+    "xml-streamer": "^0.1.8",
+    "xmlsplit": "^1.2.7"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

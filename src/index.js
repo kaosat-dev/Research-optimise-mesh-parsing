@@ -56,6 +56,7 @@ function handleFileSelect (e) {
   function testRunStreamBlock () {
     const concat = require('concat-stream')
 
+    // for STL
     const workerStream = streamWorkerSpawner.bind(null, {transferable: false})()
     fileReaderStream(files[0], {chunkSize: 9999999999}).pipe(workerStream)
   /*.pipe(concat(function(data) {
@@ -64,16 +65,65 @@ function handleFileSelect (e) {
   }
 
   function testRunStream () {
+    const concat = require('concat-stream')
+    // const unzipper = require('unzipper')
+    // const unzip = require('unzip')
+    const JSZip = require('jszip')
+    const sax = require('sax')
+    //const xmlParser = require('xml-streamer') // fails to load
+    const xmlSplit = require('xmlsplit') //does not work/unclear api
+
+    const sourceStream = fileReaderStream(files[0], {chunkSize: 64000})
+
+    const startTime = new Date()
+
+    const xmlStream = sax.createStream(true, {trim: true})
+    //const xmlStream = new xmlParser()
+    //const xmlStream = new xmlSplit()
+
+    function onTagOpen (tag) {
+      // console.log("onTagOpen",tag)
+    }
+
+    function onTagClose (tag) {
+      console.log('onTagClose', tag)
+
+    }
+    function onTagText (text) {
+      console.log('text', text) // , this._parser.tag)
+    }
+
+    function onParseEnd(){
+      const endTime = new Date()
+      console.log(`done ! elapsed: ${endTime - startTime} ms`)
+    }
+    // saxStream.on('opentag', onTagOpen)
+    // saxStream.on('closetag', onTagClose)
+    // saxStream.on('text', onTagText)
+    xmlStream.on('end', onParseEnd)
+
+
+    const fData = sourceStream.pipe(concat(function (data) {
+      new JSZip().loadAsync(data).then(function (zip) {
+        if (zip.files && zip.files['3D'] !== null) {
+          const fileStream = zip.file('3D/3dmodel.model').nodeStream()
+          fileStream
+            .pipe(xmlStream)
+        }
+      })
+      return data
+    }))
   }
 
   console.log(`Results for file size: ${formatBytes(files[0].size)}`)
 
-  repeat(testCount, testRunTransferable, files[0])
+  // repeat(testCount, testRunTransferable, files[0])
   // repeat(testCount, testRunCopy, files[0])
   // repeat(testCount, testRunStreamBlock, files[0])
 
   // parseStlAsStreamNoWorker(fileReaderStream, files)
-  parseStlAsStreamWorker(fileReaderStream, files)
+  // parseStlAsStreamWorker(fileReaderStream, files)
+  testRunStream()
 }
 
 function handleDragOver (e) {
