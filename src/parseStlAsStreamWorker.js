@@ -73,7 +73,7 @@ export default function parseStlAsStreamWorker (fileReaderStream, files) {
     end(chunk, encoding, callback){
       //console.log('end', chunk ,encoding, callback)
       const self = this
-      setTimeout(() => self.emit('finish'), 0.1)
+      setTimeout(() => self.emit('finish'), 0.001)//WTH ??withouth this, finish is emitted too early
     }
   }
   /*function makeFormatter(){
